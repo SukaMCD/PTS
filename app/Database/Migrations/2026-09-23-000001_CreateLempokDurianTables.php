@@ -134,6 +134,7 @@ class CreateLempokDurianTables extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
                 'null'       => true,
+                'default'    => 'https://i0.wp.com/resepkoki.id/wp-content/uploads/2022/05/Resep-Lempok-Durian.jpg?fit=450%2C600&ssl=1',
             ],
             'created_at' => [
                 'type' => 'DATETIME',

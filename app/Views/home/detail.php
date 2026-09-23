@@ -63,11 +63,10 @@
             <!-- Right Column: Product Detail & Purchase Simulation -->
             <div class="lg:col-span-6 space-y-6">
                 <div>
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent/20 text-amber-900 border border-accent/40 text-xs font-bold mb-3">
-                        <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
-                        <span>Otentik Khas Bengkulu — Resep Tradisional</span>
-                    </div>
-                    <h1 class="text-3xl sm:text-4xl font-black text-zinc-900 tracking-tight">
+                    <span class="text-xs font-bold uppercase tracking-wider text-primary block mb-1.5">
+                        Kuliner Tradisional Bengkulu
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-zinc-900 tracking-tight">
                         <?= esc($makanan['nama_makanan']) ?>
                     </h1>
                     <p class="text-zinc-500 text-sm mt-2 leading-relaxed">

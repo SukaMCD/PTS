@@ -48,36 +48,25 @@
 </head>
 <body class="bg-[#fafaf9] text-zinc-900 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-primary-900 text-white text-xs py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-        <span>Kuliner Asli Bumi Rafflesia Bengkulu — 100% Daging Durian Asli Tanpa Campuran Tepung</span>
-        <span class="hidden md:inline font-bold text-accent ml-2">Promo Diskon Oleh-Oleh Tersedia!</span>
-    </div>
-
     <!-- Navigation Header -->
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-zinc-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
             
             <!-- Logo & Brand -->
             <a href="/" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-xl bg-primary text-white flex items-center justify-center font-black text-xl shadow-md group-hover:scale-105 transition">
+                <div class="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-lg shadow-sm transition">
                     P
                 </div>
                 <div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="font-extrabold text-xl tracking-tight text-primary">PRATAMA</span>
-                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-accent/20 text-amber-900 border border-accent/40 uppercase">Bengkulu</span>
-                    </div>
-                    <p class="text-[11px] font-medium text-zinc-500 tracking-wide uppercase">Authentic Lempok Durian</p>
+                    <span class="font-bold text-lg tracking-tight text-primary block leading-none">PRATAMA</span>
+                    <span class="text-[11px] font-medium text-zinc-500 tracking-wider uppercase mt-1 block">Lempok Durian Bengkulu</span>
                 </div>
             </a>
 
             <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-zinc-600">
+            <nav class="hidden md:flex items-center gap-7 text-xs font-semibold text-zinc-600">
                 <a href="/#menu" class="hover:text-primary transition">Katalog Menu</a>
                 <a href="/#tentang" class="hover:text-primary transition">Tentang Lempok</a>
-                <a href="/#keunggulan" class="hover:text-primary transition">Keunggulan</a>
                 <a href="/#testimoni" class="hover:text-primary transition">Ulasan</a>
             </nav>
 

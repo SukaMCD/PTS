@@ -35,7 +35,7 @@ class MakananSeeder extends Seeder
                 'harga'             => 45000,
                 'stok'              => 35,
                 'rating'            => 4.9,
-                'gambar'            => 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&auto=format&fit=crop&q=80',
+                'gambar'            => 'https://i0.wp.com/resepkoki.id/wp-content/uploads/2022/05/Resep-Lempok-Durian.jpg?fit=450%2C600&ssl=1',
                 'created_at'        => date('Y-m-d H:i:s'),
                 'updated_at'        => date('Y-m-d H:i:s'),
             ],
