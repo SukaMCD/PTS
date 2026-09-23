@@ -1,0 +1,103 @@
+#--------------------------------------------------------------------
+# Environment & Sensitive Files
+#--------------------------------------------------------------------
+.env
+.env.backup
+.env.local
+.vagrant
+Vagrantfile
+
+#--------------------------------------------------------------------
+# Composer & Dependencies
+#--------------------------------------------------------------------
+/vendor/
+composer.phar
+
+# Node & Frontend (jika pakai npm)
+/node_modules/
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+#--------------------------------------------------------------------
+# Temporary & Cache Files (CI4)
+#--------------------------------------------------------------------
+/writable/cache/*
+!/writable/cache/index.html
+
+/writable/logs/*
+!/writable/logs/index.html
+
+/writable/session/*
+!/writable/session/index.html
+
+/writable/uploads/*
+!/writable/uploads/index.html
+
+/writable/debugbar/*
+!/writable/debugbar/index.html
+
+php_errors.log
+
+#--------------------------------------------------------------------
+# User Uploads (Public)
+#--------------------------------------------------------------------
+/public/uploads/*
+!/public/uploads/index.html
+!/public/uploads/.gitkeep
+
+#--------------------------------------------------------------------
+# Database Dumps & Local SQLite
+#--------------------------------------------------------------------
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+#--------------------------------------------------------------------
+# Operating System & IDE Files
+#--------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# Editors & IDEs
+.idea/
+*.iml
+.vscode/
+*.sublime-workspace
+*.sublime-project
+.phpintel
+/nbproject/
+/build/
+/dist/
+.antigravity*
+.agent/
+.agents/
+
+#--------------------------------------------------------------------
+# Testing & Code Coverage
+#--------------------------------------------------------------------
+/tests/coverage*
+/phpunit
+/phpunit.xml
+/results/
