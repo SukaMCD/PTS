@@ -57,6 +57,8 @@
             <form action="<?= base_url('/login') ?>" method="POST" class="space-y-4">
                 <?= csrf_field() ?>
 
+                <?php $errors = session()->getFlashdata('errors') ?? []; ?>
+
                 <div>
                     <label for="username" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Username / Email</label>
                     <div class="relative">
@@ -66,22 +68,32 @@
                                id="username" 
                                value="<?= old('username') ?>" 
                                required 
-                               placeholder="admin atau petugas"
-                               class="w-full bg-zinc-50 border border-zinc-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition">
+                               placeholder="admin atau petugas@domain.com"
+                               class="w-full bg-zinc-50 border <?= isset($errors['username']) ? 'border-red-500 focus:ring-red-500' : 'border-zinc-200 focus:ring-primary' ?> rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:bg-white transition">
                     </div>
+                    <?php if (isset($errors['username'])): ?>
+                        <p class="text-[11px] text-red-500 mt-1 flex items-center gap-1">
+                            <i data-lucide="alert-circle" class="w-3 h-3"></i> <?= esc($errors['username']) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
 
                 <div>
-                    <label for="password" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Password</label>
+                    <label for="password" class="block text-xs font-bold uppercase tracking-wider text-zinc-600 mb-1.5">Kata Sandi</label>
                     <div class="relative">
                         <i data-lucide="lock" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400"></i>
                         <input type="password" 
                                name="password" 
                                id="password" 
                                required 
-                               placeholder="••••••••"
-                               class="w-full bg-zinc-50 border border-zinc-200 rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition">
+                               placeholder="Minimal 6 karakter"
+                               class="w-full bg-zinc-50 border <?= isset($errors['password']) ? 'border-red-500 focus:ring-red-500' : 'border-zinc-200 focus:ring-primary' ?> rounded-xl pl-10 pr-3.5 py-2.5 text-xs text-zinc-900 focus:outline-none focus:ring-2 focus:bg-white transition">
                     </div>
+                    <?php if (isset($errors['password'])): ?>
+                        <p class="text-[11px] text-red-500 mt-1 flex items-center gap-1">
+                            <i data-lucide="alert-circle" class="w-3 h-3"></i> <?= esc($errors['password']) ?>
+                        </p>
+                    <?php endif; ?>
                 </div>
 
                 <button type="submit" class="w-full bg-primary hover:bg-indigo-900 text-white font-bold py-3 px-4 rounded-xl text-xs transition shadow-md flex items-center justify-center gap-2">
@@ -89,6 +101,11 @@
                     <span>Masuk ke Dashboard</span>
                 </button>
             </form>
+
+            <div class="mt-4 pt-4 border-t border-zinc-100 text-center text-xs text-zinc-500">
+                Belum punya akun pelanggan? 
+                <a href="<?= base_url('/register') ?>" class="font-bold text-primary hover:underline">Daftar di sini</a>
+            </div>
         </div>
 
         <!-- Testing Credentials Helper Box (Untuk Penguji / Guru) -->

@@ -92,7 +92,11 @@
                             <tr class="hover:bg-zinc-50/80 transition">
                                 <td class="px-5 py-3 text-center font-bold text-zinc-400"><?= $no++ ?></td>
                                 <td class="px-5 py-3 font-semibold text-zinc-900 flex items-center gap-3">
-                                    <img src="<?= esc($m['gambar']) ?>" alt="" class="w-10 h-10 object-cover rounded-lg border border-zinc-200 shrink-0">
+                                    <?php 
+                                        $img = $m['gambar'] ?: 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&auto=format&fit=crop&q=80';
+                                        $imgUrl = (strpos($img, 'http') === 0) ? $img : base_url($img);
+                                    ?>
+                                    <img src="<?= esc($imgUrl) ?>" alt="" class="w-10 h-10 object-cover rounded-lg border border-zinc-200 shrink-0">
                                     <div>
                                         <span class="block font-bold text-zinc-800"><?= esc($m['nama_makanan']) ?></span>
                                         <span class="text-[10px] text-zinc-400 font-normal"><?= esc($m['asal_daerah']) ?></span>

@@ -46,6 +46,7 @@ php_errors.log
 /public/uploads/*
 !/public/uploads/index.html
 !/public/uploads/.gitkeep
+/public/null/
 
 #--------------------------------------------------------------------
 # Database Dumps & Local SQLite

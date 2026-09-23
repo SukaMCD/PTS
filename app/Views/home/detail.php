@@ -26,7 +26,11 @@
             <!-- Left Column: Product Image Gallery -->
             <div class="lg:col-span-6 space-y-4">
                 <div class="relative bg-zinc-50 border border-zinc-200 rounded-3xl overflow-hidden shadow-sm">
-                    <img src="<?= esc($makanan['gambar'] ?? 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=800&auto=format&fit=crop&q=80') ?>" 
+                    <?php 
+                        $detailImg = $makanan['gambar'] ?: 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=800&auto=format&fit=crop&q=80';
+                        $detailImgUrl = (strpos($detailImg, 'http') === 0) ? $detailImg : base_url($detailImg);
+                    ?>
+                    <img src="<?= esc($detailImgUrl) ?>" 
                          alt="<?= esc($makanan['nama_makanan']) ?>" 
                          class="w-full h-96 object-cover">
                     
@@ -98,21 +102,82 @@
                     </div>
                 </div>
 
-                <!-- Actions -->
-                <div class="pt-4 border-t border-zinc-200 flex flex-wrap items-center gap-4">
-                    <a href="https://wa.me/6281278901234?text=Halo%20Pratama%20Lempok%20Durian,%20saya%20tertarik%20memesan%20<?= urlencode($makanan['nama_makanan']) ?>" 
-                       target="_blank" 
-                       class="flex-1 inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl text-sm transition shadow-md">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i>
-                        <span>Pesan Cepat via WhatsApp</span>
-                    </a>
+                <!-- Form Pemesanan Langsung Web -->
+                <div class="bg-zinc-50 border border-zinc-200 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center justify-between border-b border-zinc-200/80 pb-3">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-4 h-4 text-primary"></i>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-zinc-800">Form Pemesanan Menu</h4>
+                        </div>
+                        <span class="text-[11px] font-semibold text-emerald-600">Sisa Stok: <?= esc($makanan['stok']) ?> pcs</span>
+                    </div>
 
-                    <a href="/#menu" class="inline-flex items-center gap-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 font-semibold py-3.5 px-5 rounded-xl text-xs transition">
-                        <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                        <span>Kembali ke Menu</span>
-                    </a>
+                    <?php if (session()->getFlashdata('error')): ?>
+                        <div class="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold">
+                            <?= esc(session()->getFlashdata('error')) ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <form action="/pesan" method="POST" class="space-y-3.5">
+                        <?= csrf_field() ?>
+                        <input type="hidden" name="makanan_id" value="<?= $makanan['id'] ?>">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-zinc-500 mb-1">Jumlah Porsi / Kotak *</label>
+                                <input type="number" 
+                                       name="jumlah" 
+                                       value="1" 
+                                       min="1" 
+                                       max="<?= max(1, $makanan['stok']) ?>" 
+                                       required 
+                                       class="w-full bg-white border border-zinc-200 rounded-xl px-3 py-2 text-xs text-zinc-800 font-bold focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-zinc-500 mb-1">Nama Pemesan *</label>
+                                <input type="text" 
+                                       name="nama_pelanggan" 
+                                       value="<?= esc(session()->get('nama') ?? '') ?>" 
+                                       required 
+                                       placeholder="Nama lengkap Anda"
+                                       class="w-full bg-white border border-zinc-200 rounded-xl px-3 py-2 text-xs text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-zinc-500 mb-1">Nomor Telepon / WhatsApp *</label>
+                                <input type="tel" 
+                                       name="telepon" 
+                                       required 
+                                       placeholder="Contoh: 081234567890"
+                                       class="w-full bg-white border border-zinc-200 rounded-xl px-3 py-2 text-xs text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-zinc-500 mb-1">Catatan Tambahan</label>
+                                <input type="text" 
+                                       name="catatan" 
+                                       placeholder="Misal: untuk oleh-oleh besok pagi"
+                                       class="w-full bg-white border border-zinc-200 rounded-xl px-3 py-2 text-xs text-zinc-800 focus:outline-none focus:ring-2 focus:ring-primary">
+                            </div>
+                        </div>
+
+                        <div class="pt-2 flex flex-col sm:flex-row items-center gap-2.5">
+                            <button type="submit" class="w-full sm:flex-1 bg-primary hover:bg-primary-900 text-white font-bold py-3 px-5 rounded-xl text-xs transition shadow-md flex items-center justify-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                <span>Pesan Sekarang (Kirim ke Kasir)</span>
+                            </button>
+                            <a href="https://wa.me/6281278901234?text=Halo%20Pratama%20Lempok%20Durian,%20saya%20tertarik%20memesan%20<?= urlencode($makanan['nama_makanan']) ?>" 
+                               target="_blank" 
+                               class="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl text-xs transition">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </form>
                 </div>
-            </div>
 
         </div>
 

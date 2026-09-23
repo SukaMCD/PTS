@@ -46,24 +46,58 @@
                 </div>
             </a>
 
-            <!-- Navigation Links -->
-            <div class="space-y-1">
-                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Manajemen Menu</span>
-                <a href="/admin/makanan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold bg-primary text-white shadow-sm transition">
-                    <i data-lucide="utensils" class="w-4 h-4"></i>
-                    <span>Katalog Makanan (CRUD)</span>
-                </a>
-                <a href="/admin/makanan/create" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
-                    <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                    <span>Tambah Menu Baru</span>
-                </a>
-            </div>
+            <!-- Navigation Links Berdasarkan Role -->
+            <?php $userRole = session()->get('role') ?? 'admin'; ?>
 
-            <div class="space-y-1">
-                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Navigasi Publik</span>
+            <?php if ($userRole === 'admin'): ?>
+                <!-- Menu Khusus Admin -->
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Master Data</span>
+                    <a href="/admin/makanan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold <?= (uri_string() === 'admin/makanan') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="utensils" class="w-4 h-4"></i>
+                        <span>Katalog Menu (CRUD)</span>
+                    </a>
+                    <a href="/admin/makanan/create" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold <?= (uri_string() === 'admin/makanan/create') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                        <span>Tambah Menu Baru</span>
+                    </a>
+                </div>
+
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Administrasi</span>
+                    <a href="/admin/users" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold <?= (uri_string() === 'admin/users') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                        <span>Manajemen Pengguna</span>
+                    </a>
+                    <a href="/admin/laporan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold <?= (uri_string() === 'admin/laporan') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+                        <span>Rekapitulasi Penjualan</span>
+                    </a>
+                    <a href="/petugas/pesanan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold <?= (uri_string() === 'petugas/pesanan') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                        <span>Pantau Antrean Kasir</span>
+                    </a>
+                </div>
+            <?php else: ?>
+                <!-- Menu Khusus Petugas / Kasir -->
+                <div class="space-y-1">
+                    <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Operasional Outlet</span>
+                    <a href="/petugas/pesanan" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-bold <?= (strpos(uri_string(), 'petugas/pesanan') !== false) ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="inbox" class="w-4 h-4"></i>
+                        <span>Antrean Pesanan Kasir</span>
+                    </a>
+                    <a href="/petugas/stok" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold <?= (uri_string() === 'petugas/stok') ? 'bg-primary text-white shadow-sm' : 'text-zinc-600 hover:bg-zinc-100' ?> transition">
+                        <i data-lucide="boxes" class="w-4 h-4"></i>
+                        <span>Monitoring Stok Menu</span>
+                    </a>
+                </div>
+            <?php endif; ?>
+
+            <div class="space-y-1 pt-2 border-t border-zinc-100">
+                <span class="text-[10px] font-bold text-zinc-400 uppercase tracking-widest px-3 block mb-2">Akses Cepat</span>
                 <a href="/" target="_blank" class="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 transition">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
-                    <span>Lihat Halaman Depan</span>
+                    <span>Halaman Depan Restoran</span>
                 </a>
             </div>
         </div>
@@ -120,6 +154,20 @@
                 <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs font-semibold flex items-center gap-2 shadow-sm">
                     <i data-lucide="alert-circle" class="w-4 h-4 text-red-600 shrink-0"></i>
                     <span><?= esc(session()->getFlashdata('error')) ?></span>
+                </div>
+            <?php endif; ?>
+
+            <?php if (session()->getFlashdata('errors')): ?>
+                <div class="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800 text-xs font-semibold space-y-1 shadow-sm">
+                    <div class="flex items-center gap-2 font-bold text-red-700">
+                        <i data-lucide="alert-circle" class="w-4 h-4 text-red-600 shrink-0"></i>
+                        <span>Mohon periksa kesalahan input berikut:</span>
+                    </div>
+                    <ul class="list-disc list-inside pl-6 text-[11px] text-red-600 space-y-0.5 font-normal">
+                        <?php foreach (session()->getFlashdata('errors') as $err): ?>
+                            <li><?= esc($err) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             <?php endif; ?>
 

@@ -163,7 +163,11 @@
                         
                         <!-- Gambar Makanan -->
                         <div class="relative h-52 overflow-hidden bg-zinc-100">
-                            <img src="<?= esc($item['gambar'] ?? 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&auto=format&fit=crop&q=80') ?>" 
+                            <?php 
+                                $cardImg = $item['gambar'] ?: 'https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=600&auto=format&fit=crop&q=80';
+                                $cardImgUrl = (strpos($cardImg, 'http') === 0) ? $cardImg : base_url($cardImg);
+                            ?>
+                            <img src="<?= esc($cardImgUrl) ?>" 
                                  alt="<?= esc($item['nama_makanan']) ?>" 
                                  class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             

@@ -81,20 +81,43 @@
                 <a href="/#testimoni" class="hover:text-primary transition">Ulasan</a>
             </nav>
 
-            <!-- Action Buttons -->
-            <div class="flex items-center gap-3">
+            <!-- Action Buttons Berdasarkan Status Sesi -->
+            <div class="flex items-center gap-2.5">
                 <?php if (session()->get('is_logged_in')): ?>
-                    <a href="/admin/makanan" class="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary-900 px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-sm">
-                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Panel Kelola (<?= esc(session()->get('role')) ?>)</span>
-                    </a>
-                    <a href="/logout" class="p-2 text-zinc-400 hover:text-red-600 transition" title="Logout">
+                    <?php $currRole = session()->get('role'); ?>
+                    
+                    <?php if ($currRole === 'admin'): ?>
+                        <a href="/admin/makanan" class="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary-900 px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm">
+                            <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                            <span>Dashboard Admin</span>
+                        </a>
+                    <?php elseif ($currRole === 'petugas'): ?>
+                        <a href="/petugas/pesanan" class="inline-flex items-center gap-2 bg-amber-600 text-white hover:bg-amber-700 px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm">
+                            <i data-lucide="inbox" class="w-3.5 h-3.5"></i>
+                            <span>Panel Kasir Petugas</span>
+                        </a>
+                    <?php else: ?>
+                        <!-- Role User / Pelanggan -->
+                        <a href="/riwayat" class="inline-flex items-center gap-1.5 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition">
+                            <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-primary"></i>
+                            <span>Pesanan Saya</span>
+                        </a>
+                        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-primary/5 text-primary text-xs font-bold">
+                            <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+                            <span><?= esc(session()->get('nama')) ?></span>
+                        </div>
+                    <?php endif; ?>
+
+                    <a href="/logout" onclick="return confirm('Keluar dari sesi akun?')" class="p-2 text-zinc-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition" title="Logout">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </a>
                 <?php else: ?>
-                    <a href="/login" class="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary-700 px-4 py-2.5 rounded-xl text-xs font-bold transition shadow-sm">
-                        <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-                        <span>Login Pengelola</span>
+                    <a href="/login" class="text-xs font-bold text-zinc-600 hover:text-primary px-3 py-2 transition">
+                        Masuk
+                    </a>
+                    <a href="/register" class="inline-flex items-center gap-1.5 bg-primary text-white hover:bg-primary-900 px-4 py-2 rounded-xl text-xs font-bold transition shadow-sm">
+                        <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+                        <span>Daftar</span>
                     </a>
                 <?php endif; ?>
             </div>
